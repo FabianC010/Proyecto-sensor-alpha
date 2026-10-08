@@ -13,7 +13,7 @@ def Desplazamiento(DT):
     return np.random.rand() * DT
 
 # Cargamos los datos reales y definimos los canales
-data = np.loadtxt("Datos reales\MCA_data.dat")  #Datos reales  
+data = np.loadtxt("Datos reales\MCA_Data_01.dat")  #Datos reales  
 Canales = np.linspace(0, data[:, 0].size, data[:, 0].size+1)  
 
 # Definimos los picos de los espectros para cada isótopo
@@ -37,7 +37,7 @@ Datos_ruidosos = np.zeros((Temperaturas.size, Canales.size))
 # Creamos un directorio para almacenar los datos simulados
 out_dir = Path("Datos sinteticos")
 out_dir.mkdir(exist_ok=True) # Directorio de salida para los datos simulados
-
+'''
 # Simulamos los datos para cada temperatura y los guardamos en archivos separados
 for i in range(Temperaturas.size):
     DT = Desplazamiento(Temperaturas[i]) #Funcion que genera un desplazamiento aleatorio en el espectro debido a la temperatura
@@ -47,3 +47,5 @@ for i in range(Temperaturas.size):
     # Guardamos los datos simulados y ruidosos en archivos separados
     write_data = np.column_stack((Canales, Datos_ruidosos[i]))
     np.savetxt(out_dir / f"Datos_simulados_{i}.dat", write_data, fmt='%.2f')
+
+'''
