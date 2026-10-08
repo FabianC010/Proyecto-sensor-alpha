@@ -1,10 +1,16 @@
 import numpy as np 
-from Ruido import Desplazamiento, noise
 from pathlib import Path
 
 # Definimos la función gaussiana para simular los picos de los espectros 
 def gaussian(x, mu, sigma=80):
     return 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(- (x - mu)**2 / (2 * sigma**2))
+
+def noise(Total_dist, intensidad):
+    expected_counts = Total_dist / Total_dist.max() * intensidad
+    return np.random.poisson(expected_counts)
+
+def Desplazamiento(DT):
+    return np.random.rand() * DT
 
 # Cargamos los datos reales y definimos los canales
 data = np.loadtxt("Datos reales\MCA_data.dat")  #Datos reales  
@@ -22,7 +28,7 @@ Cm_dist = gaussian(Canales, mu_Cm) # 244Cm
 Total_dist = Pu_dist*0.83 + Am_dist*0.76 + Cm_dist*0.68
 
 #Generamos un arreglo de temperaturas aleatorias y simulamos los datos ruidosos y desplazamiento debido a cada temperatura
-Temperaturas = np.random.randint(0, 10, size=100) 
+Temperaturas = np.random.randint(0, 500, size=100) 
 
 #inicializamos los arreglos para almacenar los datos simulados y los datos ruidosos
 Datos = np.zeros((Temperaturas.size, Canales.size))   
